@@ -6,4 +6,11 @@ deploy:
   app: portfolio-server
   env: ''
   on:
+    branch: master
     repo: timkellogg/portfolio-server
+services:
+  - postgresql
+before_script:
+  - psql -c 'create database portfolio-server_production;' -U postgres -P $PORTFOLIO-SERVER_DATABASE_PASSWORD
+  - bundle exec rails db:create && bundle exec rails db:migrate
+  
